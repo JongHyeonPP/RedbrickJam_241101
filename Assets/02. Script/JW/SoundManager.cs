@@ -55,6 +55,13 @@ public class SoundManager : MonoBehaviour
         soundSet.SetActive(false);
     }
 
+    public void UpdateSound()
+    {
+        mastervalue = m_MusicMasterSlider.value;
+        bgmvalue = m_MusicBGMSlider.value;
+        sfxvalue = m_MusicSFXSlider.value;
+    }
+
     private void Start()
     {
         if (PlayerPrefs.HasKey("master") == false)

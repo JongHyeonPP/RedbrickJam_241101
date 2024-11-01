@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class CameraController : MonoBehaviour
 {
+
     public Transform target;           // Target for the camera to orbit
     public float distance = 5.0f;      // Distance from the target
     public float rotationSpeed = 2.0f; // Rotation speed
@@ -17,6 +19,7 @@ public class CameraController : MonoBehaviour
     private Quaternion targetRotation; // Stores calculated target rotation
     private float fixedYPosition;      // Fixed y position during jump
     private bool isFollowingY;         // Flag to control y-axis following
+    private Volume volume;
 
     void Start()
     {
@@ -25,7 +28,7 @@ public class CameraController : MonoBehaviour
             Debug.LogError("Target not assigned. Please assign a target for the camera to orbit.");
             return;
         }
-
+        volume = GetComponent<Volume>();
         // Set initial rotation values
         yaw = transform.eulerAngles.y;
         pitch = transform.eulerAngles.x;
@@ -37,6 +40,11 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            PostProcessOnOff(!volume.enabled);
+        }
+
         // Check if right mouse button is pressed to enable rotation
         if (Input.GetMouseButtonDown(1))
         {
@@ -118,5 +126,9 @@ public class CameraController : MonoBehaviour
     {
         // Raycast to check if the character is grounded
         return Physics.Raycast(target.position, Vector3.down, 0.1f);
+    }
+    void PostProcessOnOff(bool _isOn)
+    {
+        volume.enabled = _isOn;
     }
 }

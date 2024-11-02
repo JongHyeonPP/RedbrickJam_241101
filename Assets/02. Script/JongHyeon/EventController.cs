@@ -4,8 +4,8 @@ using UnityEngine;
 public class EventController : MonoBehaviour
 {
     [SerializeField] MainManager mainManager;
-    float distanceThreshold = 3f;
-    float offsetDistance = -1f;
+    public float distanceThreshold = 10f;
+    public float offsetDistance = 5f;
     [SerializeField] Animator animator;
 
     private PushObject currentPushObject;
@@ -14,14 +14,19 @@ public class EventController : MonoBehaviour
 
     MoveController moveController;
 
+    Rigidbody rigidbody;
+    private bool isOnCooldown;
+    [SerializeField] CameraController cameraController;
+
     private void Start()
     {
         moveController = GetComponent<MoveController>();
+        rigidbody = GetComponent<Rigidbody>();
     }
 
     private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
+    {;
+        if (Input.GetKeyDown(KeyCode.E)&&!mainManager.isTileClear)
         {
             currentPushObject = CheckForPushObjectInFront();
 
@@ -29,7 +34,7 @@ public class EventController : MonoBehaviour
             {
                 Vector3 directionToPushObject = (currentPushObject.transform.position - transform.position).normalized;
                 Vector3 targetPosition = CalculateTargetPosition(currentPushObject.transform, directionToPushObject);
-                transform.position = targetPosition;
+                transform.position = new Vector3(targetPosition.x, transform.position.y, targetPosition.z); // y 고정
 
                 // 오브젝트를 바라보는 방향으로 회전 설정
                 transform.LookAt(new Vector3(currentPushObject.transform.position.x, transform.position.y, currentPushObject.transform.position.z));
@@ -44,12 +49,13 @@ public class EventController : MonoBehaviour
         }
 
         // isMovingWithPushObject가 false일 때만 ASD 키로 밀기 해제 가능
-        if(currentPushObject)
-        if (!isMovingWithPushObject && (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)))
-        {
-            animator.SetBool("isPush", false);
-            currentPushObject = null;
-        }
+        if (!isMovingWithPushObject)
+            if ((Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)))
+            {
+                animator.SetBool("isPush", false);
+                currentPushObject = null;
+                isMovingWithPushObject = false;
+            }
 
         // 고정된 회전을 유지
         if (currentPushObject != null)
@@ -67,36 +73,34 @@ public class EventController : MonoBehaviour
         int newRow = currentPushObject.currentRow;
         int newCol = currentPushObject.currentColumn;
 
-        Vector3 offsetFromPushObject = transform.position - currentPushObject.transform.position;
-        Vector3 directionToPushObject = (currentPushObject.transform.position - transform.position).normalized;
+        // y 좌표를 고정한 상태로 오프셋 계산
+        float originalY = transform.position.y; // 플레이어의 원래 y 좌표
+        Vector3 offsetFromPushObject = new Vector3(transform.position.x - currentPushObject.transform.position.x, 0, transform.position.z - currentPushObject.transform.position.z);
+        Vector3 directionToPushObject = new Vector3(currentPushObject.transform.position.x - transform.position.x, 0, currentPushObject.transform.position.z - transform.position.z).normalized;
 
-        // 방향에 따라 행 또는 열을 조정 (기존 방식 유지)
+        rigidbody.isKinematic = true;
+
+        // 방향에 따라 행 또는 열을 조정
         if (Mathf.Abs(directionToPushObject.x) > Mathf.Abs(directionToPushObject.z))
         {
-            // x 방향으로 더 많이 기울어져 있는 경우: 왼쪽 또는 오른쪽으로 이동
             if (directionToPushObject.x > 0)
             {
-                // 오른쪽으로 이동
-                newRow -= 1;
+                newCol += 1; // 오른쪽 이동
             }
             else
             {
-                // 왼쪽으로 이동
-                newRow += 1;
+                newCol -= 1; // 왼쪽 이동
             }
         }
         else
         {
-            // z 방향으로 더 많이 기울어져 있는 경우: 앞쪽 또는 뒤쪽으로 이동
             if (directionToPushObject.z > 0)
             {
-                // 앞쪽으로 이동
-                newCol += 1;
+                newRow += 1; // 앞쪽 이동
             }
             else
             {
-                // 뒤쪽으로 이동
-                newCol -= 1;
+                newRow -= 1; // 뒤쪽 이동
             }
         }
 
@@ -105,8 +109,8 @@ public class EventController : MonoBehaviour
             !mainManager.isPlaced[newRow, newCol])
         {
             Transform targetTransform = mainManager.gridPositions[newRow, newCol];
-            Vector3 startPosition = currentPushObject.transform.position;
-            Vector3 targetPosition = targetTransform.position;
+            Vector3 startPosition = new Vector3(currentPushObject.transform.position.x, currentPushObject.transform.position.y, currentPushObject.transform.position.z); // 오브젝트의 원래 y 고정
+            Vector3 targetPosition = new Vector3(targetTransform.position.x, currentPushObject.transform.position.y, targetTransform.position.z); // 오브젝트의 원래 y 고정
 
             float moveDuration = 1f;
             float elapsedTime = 0f;
@@ -116,8 +120,9 @@ public class EventController : MonoBehaviour
 
             while (elapsedTime < moveDuration)
             {
+                // y 좌표를 원래 위치로 고정한 상태로 이동
                 currentPushObject.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / moveDuration);
-                transform.position = currentPushObject.transform.position + offsetFromPushObject;
+                transform.position = new Vector3(currentPushObject.transform.position.x, originalY, currentPushObject.transform.position.z) + offsetFromPushObject;
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
@@ -126,19 +131,18 @@ public class EventController : MonoBehaviour
             currentPushObject.currentRow = newRow;
             currentPushObject.currentColumn = newCol;
 
-            transform.position = currentPushObject.transform.position + offsetFromPushObject;
+            transform.position = new Vector3(currentPushObject.transform.position.x, originalY, currentPushObject.transform.position.z) + offsetFromPushObject;
+            mainManager.CheckConnectedPushObjects();
         }
+
+        rigidbody.isKinematic = false;
 
         animator.SetFloat("speed", 0f);
         moveController.canMove = true;
-        isMovingWithPushObject = false;;
-        var objects = mainManager.CheckConnectedPushObjects();
-        foreach (var x in objects)
-        {
-            x.PrintRowColumn();
-        }
-    }
+        isMovingWithPushObject = false;
+        
 
+    }
 
 
     private PushObject CheckForPushObjectInFront()
@@ -148,7 +152,9 @@ public class EventController : MonoBehaviour
         {
             if (hit.collider.CompareTag("PushObject"))
             {
-                return hit.collider.transform.parent.GetComponent<PushObject>();
+                PushObject pushObject = hit.collider.transform.GetComponent<PushObject>();
+                if (!pushObject.isFirstOrLast&&!pushObject.isPast)
+                return pushObject;
             }
         }
         return null;
@@ -173,7 +179,30 @@ public class EventController : MonoBehaviour
             targetPosition += (rightDot > 0 ? -pushObjectRight : pushObjectRight) * (distanceThreshold + offsetDistance);
         }
 
-        targetPosition.y = transform.position.y;
+        targetPosition.y = transform.position.y; // y 좌표 고정
         return targetPosition;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        switch (other.tag)
+        {
+            case "TimeZone":
+                if (mainManager.isPresent)
+                {
+                    mainManager.pastButton.SetActive(true);
+                    mainManager.presentButton.SetActive(false);
+                }
+                else
+                {
+                    mainManager.pastButton.SetActive(false);
+                    mainManager.presentButton.SetActive(true);
+                }
+                break;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        mainManager.pastButton.SetActive(false);
+        mainManager.presentButton.SetActive(false);
     }
 }

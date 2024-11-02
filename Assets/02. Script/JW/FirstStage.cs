@@ -23,7 +23,7 @@ public class FirstStage : MonoBehaviour
 
     void Update()
     {
-        if(bridgeNum < 6)
+        if(bridgeNum < 5)
         {
             if (stoneNum >= 0 && !isHave && Input.GetKeyDown("e"))
             {

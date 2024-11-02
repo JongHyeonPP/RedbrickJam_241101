@@ -9,6 +9,8 @@ public class SecondStage : MonoBehaviour
     public GameObject[] tower;
     public int towerNum;
 
+    private List<GameObject> electricInstances = new List<GameObject>();
+
     private Quaternion startRotation;    // 시작 회전 값
     private Quaternion targetRotation;   // 목표 회전 값
     private bool isRotating = false;
@@ -21,17 +23,16 @@ public class SecondStage : MonoBehaviour
 
     void Update()
     {
-        
-    }
-
-    public void Rotation()
-    {
-        if(towerNum >= 0 && !isRotating)
+        if (towerNum >= 0 && !isRotating && Input.GetKeyDown("e"))
         {
             StartCoroutine(RotateOverTime(2, towerNum));
         }
+        if (Input.GetKeyDown("f"))
+        {
+            ClearCurrentInstances();
+        }
     }
-
+    
     IEnumerator RotateOverTime(float duration, int towerNum)
     {
         isRotating = true;
@@ -51,5 +52,19 @@ public class SecondStage : MonoBehaviour
 
         transform.rotation = targetRotation; // 마지막으로 목표 각도로 설정
         isRotating = false; // 회전 종료 표시
+    }
+
+    public void CreateElectricBolt(GameObject electiricBolt)
+    {
+        electricInstances.Add(electiricBolt);
+    }
+
+    public void ClearCurrentInstances()
+    {
+        foreach (GameObject instance in electricInstances)
+        {
+            Destroy(instance); // 각 인스턴스 삭제
+        }
+        electricInstances.Clear(); // 리스트 비우기
     }
 }

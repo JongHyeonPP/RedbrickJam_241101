@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Purchasing.MiniJSON;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
@@ -21,27 +20,30 @@ public class CameraController : MonoBehaviour
     private Quaternion targetRotation; // Stores calculated target rotation
     private float fixedYPosition;      // Fixed y position during jump
     private bool isFollowingY;         // Flag to control y-axis following
-    //PastVolume
+
+    // Past Volume
     private Volume pastVolume;
     private WhiteBalance pastWhiteBalance;
     private Vignette pastVignette;
+
     // Renderer Feature
     private FullScreenPassRendererFeature fullScreenPass;
     private float fullScreenPassDuration = 2f; // FullScreenPass가 활성화되는 시간
     public UniversalRendererData rendererData;
     public Material underWaterMat;
+
     private void Awake()
     {
         pastVolume = GetComponent<Volume>();
 
-        // Get Bloom and Vignette components from the Volume profile
+        // Get WhiteBalance and Vignette components from the Volume profile
         if (pastVolume.profile.TryGet(out pastWhiteBalance) && pastVolume.profile.TryGet(out pastVignette))
         {
-            // Successfully retrieved Bloom and Vignette
+            // Successfully retrieved WhiteBalance and Vignette
         }
         else
         {
-            Debug.LogError("Bloom or Vignette not found in Volume profile.");
+            Debug.LogError("WhiteBalance or Vignette not found in Volume profile.");
         }
         SetupFullScreenPass();
     }
@@ -53,15 +55,14 @@ public class CameraController : MonoBehaviour
             Debug.LogError("Target not assigned. Please assign a target for the camera to orbit.");
             return;
         }
-        // Set initial rotation values
         yaw = transform.eulerAngles.y;
         pitch = transform.eulerAngles.x;
-
-        // Initialize y position and following flag
         fixedYPosition = target.position.y;
         isFollowingY = true;
 
-        pastWhiteBalance.active =  pastVignette.active = false;
+        // 초기 상태에서 WhiteBalance와 Vignette 효과를 비활성화
+        pastWhiteBalance.temperature.value = 0f;
+        pastVignette.intensity.value = 0f;
     }
 
     void Update()
@@ -136,18 +137,13 @@ public class CameraController : MonoBehaviour
         return Physics.Raycast(target.position, Vector3.down, 0.1f);
     }
 
-    public void PastVolumeOnOff(bool _isOn)
+    public void PastVolumeOnOff(bool isGoingToPast)
     {
-        StartCoroutine(ToggleFullScreenPassCoroutine()); // FullScreenPass 잠깐 활성화
-        if (pastWhiteBalance != null)
-            pastWhiteBalance.active = _isOn;
-
-        if (pastVignette != null)
-            pastVignette.active = _isOn;
+        StartCoroutine(ToggleFullScreenPassCoroutine(isGoingToPast));
     }
+
     private void SetupFullScreenPass()
     {
-        // FullScreenPassRendererFeature 찾기
         foreach (var feature in rendererData.rendererFeatures)
         {
             if (feature is FullScreenPassRendererFeature)
@@ -164,7 +160,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    private IEnumerator ToggleFullScreenPassCoroutine()
+    private IEnumerator ToggleFullScreenPassCoroutine(bool isGoingToPast)
     {
         if (fullScreenPass != null)
         {
@@ -172,22 +168,43 @@ public class CameraController : MonoBehaviour
             float halfDuration = fullScreenPassDuration / 2f;
             float timer = 0f;
 
-            // Blend 값을 0에서 0.1까지 증가
+            // 목표 값 설정
+            float targetWhiteBalanceTemp = isGoingToPast ? 40f : 0f;
+            float targetVignetteIntensity = isGoingToPast ? 0.4f : 0f;
+
+            // 점진적으로 값을 변경하여 목표 값에 고정
             while (timer < halfDuration)
             {
                 timer += Time.deltaTime;
-                float blendValue = Mathf.Lerp(0f, 0.1f, timer / halfDuration);
+                float t = timer / halfDuration;
+
+                // UnderWaterMat의 Blend 값 조절
+                float blendValue = Mathf.Lerp(0f, 0.1f, t);
                 underWaterMat.SetFloat("_Blend", blendValue);
+
+                // WhiteBalance와 Vignette 값 점진적 변화
+                if (pastWhiteBalance != null)
+                    pastWhiteBalance.temperature.value = Mathf.Lerp(pastWhiteBalance.temperature.value, targetWhiteBalanceTemp, t);
+                if (pastVignette != null)
+                    pastVignette.intensity.value = Mathf.Lerp(pastVignette.intensity.value, targetVignetteIntensity, t);
+
                 yield return null;
             }
 
-            // Blend 값을 0.1에서 0으로 감소
+            // 목표 값에 고정
+            if (pastWhiteBalance != null)
+                pastWhiteBalance.temperature.value = targetWhiteBalanceTemp;
+            if (pastVignette != null)
+                pastVignette.intensity.value = targetVignetteIntensity;
+
+            // Blend 값을 0으로 되돌림
             timer = 0f;
             while (timer < halfDuration)
             {
                 timer += Time.deltaTime;
                 float blendValue = Mathf.Lerp(0.1f, 0f, timer / halfDuration);
                 underWaterMat.SetFloat("_Blend", blendValue);
+
                 yield return null;
             }
 
@@ -197,5 +214,9 @@ public class CameraController : MonoBehaviour
         {
             Debug.LogWarning("FullScreenPassRendererFeature를 찾을 수 없습니다.");
         }
+    }
+    private void OnApplicationQuit()
+    {
+        fullScreenPass.SetActive(false);
     }
 }

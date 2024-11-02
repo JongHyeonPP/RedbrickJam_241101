@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MainManager : MonoBehaviour
@@ -10,6 +11,12 @@ public class MainManager : MonoBehaviour
     // UI
     public GameObject presentButton;
     public GameObject pastButton;
+    //PushTrick
+    [SerializeField] Transform placedParent;
+    Transform[,] placed = new Transform[5, 5];//각 위치
+    bool[,] isPlaced = new bool[5, 5];//배치 됐는지
+    [SerializeField] List<PushObject> pushObjects = new();
+
 
     private void Awake()
     {

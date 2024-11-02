@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 4524220565193266146}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -442,6 +442,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainManager: {fileID: 0}
+  distanceThreshold: 0.3
+  animator: {fileID: 5227654123932082204}
 --- !u!1 &505759204186624396
 GameObject:
   m_ObjectHideFlags: 0

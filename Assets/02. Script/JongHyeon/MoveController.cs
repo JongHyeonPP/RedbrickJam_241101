@@ -16,7 +16,6 @@ public class MoveController : MonoBehaviour
     private bool canMove = true;
     private Vector3 currentMoveDirection;      // 현재 이동 방향
     private Animator animator;
-
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -100,7 +99,6 @@ public class MoveController : MonoBehaviour
         yield return new WaitForSeconds(groundedLockTime);
         canMove = true;
     }
-
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

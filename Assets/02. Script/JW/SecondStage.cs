@@ -38,7 +38,7 @@ public class SecondStage : MonoBehaviour
         isRotating = true;
         float elapsed = 0f;
 
-        Quaternion startRotation = transform.rotation; // 현재 회전 값
+        Quaternion startRotation = tower[towerNum].transform.rotation; // 현재 회전 값
         Quaternion targetRotation = startRotation * Quaternion.Euler(0, 90, 0); // Y축으로 90도 추가
 
         while (elapsed < duration)

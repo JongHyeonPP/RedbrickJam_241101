@@ -16,19 +16,20 @@ public class CameraController : MonoBehaviour
     public float maxPitch = 60f;
     public float smoothTime = 0.1f;
 
+    public float verticalOffsetMultiplier = 1.0f; // 위쪽 오프셋 조절 변수
+    public float forwardOffsetMultiplier = 1.0f; // 방향 벡터 오프셋 조절 변수
+
     private Vector3 targetPosition;
     private Quaternion targetRotation;
     private float fixedYPosition;
     private bool isFollowingY;
 
-    private bool initialPositionSet = false; // 카메라의 초기 위치가 설정되었는지 확인
+    private bool initialPositionSet = false;
 
-    // Past Volume
     private Volume pastVolume;
     private WhiteBalance pastWhiteBalance;
     private Vignette pastVignette;
 
-    // Renderer Feature
     private FullScreenPassRendererFeature fullScreenPass;
     private float fullScreenPassDuration = 2f;
     public UniversalRendererData rendererData;
@@ -43,7 +44,7 @@ public class CameraController : MonoBehaviour
         }
         else
         {
-            Debug.LogError("WhiteBalance or Vignette not found in Volume profile.");
+            //Debug.LogError("WhiteBalance or Vignette not found in Volume profile.");
         }
         SetupFullScreenPass();
     }
@@ -63,7 +64,6 @@ public class CameraController : MonoBehaviour
         pastWhiteBalance.temperature.value = 0f;
         pastVignette.intensity.value = 0f;
 
-        // 카메라의 초기 위치를 설정하여 플레이어의 뒤쪽에 배치
         SetInitialPosition();
     }
 
@@ -103,7 +103,7 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate()
     {
-        if (!initialPositionSet) return; // 초기 위치 설정 전에는 업데이트하지 않음
+        if (!initialPositionSet) return;
 
         if (isRightMouseDown)
         {
@@ -115,7 +115,13 @@ public class CameraController : MonoBehaviour
             targetRotation = Quaternion.LookRotation(target.position - targetPosition);
         }
 
-        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime / smoothTime);
+        // 방향 벡터 계산 후 오프셋 적용
+        Vector3 direction = (target.position - transform.position).normalized;
+        direction.y = 0; // y 축은 무시하여 평면 상의 방향만 사용
+        Vector3 forwardOffset = direction * forwardOffsetMultiplier;
+
+        // 최종 위치에 forwardOffset을 더해서 보정
+        transform.position = Vector3.Lerp(transform.position, targetPosition + forwardOffset, Time.deltaTime / smoothTime);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime / smoothTime);
     }
 
@@ -129,7 +135,9 @@ public class CameraController : MonoBehaviour
         pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
 
         Quaternion rotation = Quaternion.Euler(pitch, yaw, 0);
-        Vector3 offset = new Vector3(0, 0, -distance);
+
+        float verticalOffset = pitch > 0 ? verticalOffsetMultiplier * 1.5f : 1.5f;
+        Vector3 offset = new Vector3(0, verticalOffset, -distance * 1.5f);
 
         float targetY = isFollowingY ? target.position.y : fixedYPosition;
         targetPosition = new Vector3(target.position.x, targetY, target.position.z) + rotation * offset;
@@ -139,7 +147,9 @@ public class CameraController : MonoBehaviour
     Vector3 CalculateCameraPosition()
     {
         Quaternion rotation = Quaternion.Euler(pitch, yaw, 0);
-        Vector3 offset = new Vector3(0, 0, -distance);
+
+        float verticalOffset = pitch > 0 ? verticalOffsetMultiplier * 1.5f : 1.5f;
+        Vector3 offset = new Vector3(0, verticalOffset, -distance * 1.5f);
 
         float targetY = isFollowingY ? target.position.y : fixedYPosition;
         return new Vector3(target.position.x, targetY, target.position.z) + rotation * offset;

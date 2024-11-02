@@ -4,9 +4,10 @@ using UnityEngine;
 public class EventController : MonoBehaviour
 {
     [SerializeField] MainManager mainManager;
-    float distanceThreshold = 2f;
-    float offsetDistance = 0f;
+    float distanceThreshold = 3f;
+    float offsetDistance = -1f;
     [SerializeField] Animator animator;
+    [SerializeField] Transform player_0;
     public bool isPushing { get; private set; } = false;
 
     private PushObject currentPushObject;
@@ -61,24 +62,28 @@ public class EventController : MonoBehaviour
         int newRow = currentPushObject.currentRow;
         int newCol = currentPushObject.currentColumn;
 
-        // 밀 방향을 현재 캐릭터와 PushObject의 상대 위치에 따라 결정
+        // Save the original local position of player_0
+        Vector3 originalLocalPosition = player_0.localPosition;
+
+        // Define the offset to maintain the initial distance to the PushObject
+        Vector3 offsetFromPushObject = transform.position - currentPushObject.transform.position;
+
+        // Determine push direction based on character's position relative to the PushObject
         Vector3 directionToPushObject = (currentPushObject.transform.position - transform.position).normalized;
 
         if (Mathf.Abs(directionToPushObject.x) > Mathf.Abs(directionToPushObject.z))
         {
-            newRow += (directionToPushObject.x > 0) ? 1 : -1; // 열이 아닌 행을 변경
+            newRow += (directionToPushObject.x > 0) ? 1 : -1;
         }
         else
         {
-            newCol += (directionToPushObject.z > 0) ? 1 : -1; // 행이 아닌 열을 변경
+            newCol += (directionToPushObject.z > 0) ? 1 : -1;
         }
 
-        // 배열 범위를 벗어나지 않도록 검사
         if (newRow >= 0 && newRow < mainManager.gridPositions.GetLength(0) &&
             newCol >= 0 && newCol < mainManager.gridPositions.GetLength(1) &&
             !mainManager.isPlaced[newRow, newCol])
         {
-            // 목표 위치 설정
             Transform targetTransform = mainManager.gridPositions[newRow, newCol];
             Vector3 startPosition = currentPushObject.transform.position;
             Vector3 targetPosition = targetTransform.position;
@@ -89,11 +94,13 @@ public class EventController : MonoBehaviour
             mainManager.isPlaced[currentPushObject.currentRow, currentPushObject.currentColumn] = false;
             mainManager.isPlaced[newRow, newCol] = true;
 
-            // 위치 업데이트 애니메이션
             while (elapsedTime < moveDuration)
             {
+                // Move the PushObject
                 currentPushObject.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / moveDuration);
-                transform.position = CalculateTargetPosition(currentPushObject.transform, directionToPushObject);
+
+                // Maintain the offset distance during the push movement
+                transform.position = currentPushObject.transform.position + offsetFromPushObject;
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
@@ -101,14 +108,23 @@ public class EventController : MonoBehaviour
             currentPushObject.transform.position = targetPosition;
             currentPushObject.currentRow = newRow;
             currentPushObject.currentColumn = newCol;
-            transform.position = CalculateTargetPosition(currentPushObject.transform, directionToPushObject);
+
+            // Set character position to maintain offset after movement
+            transform.position = currentPushObject.transform.position + offsetFromPushObject;
         }
 
+        // Restore player_0 to its original local position
+        player_0.localPosition = originalLocalPosition;
         animator.SetFloat("speed", 0f);
+
         moveController.canMove = true;
         isMovingWithPushObject = false;
+        var objects = mainManager.CheckConnectedPushObjects();
+        foreach (var x in objects)
+        {
+            x.PrintRowColumn();
+        }
     }
-
 
     private PushObject CheckForPushObjectInFront()
     {
@@ -117,7 +133,7 @@ public class EventController : MonoBehaviour
         {
             if (hit.collider.CompareTag("PushObject"))
             {
-                return hit.collider.GetComponent<PushObject>();
+                return hit.collider.transform.parent.GetComponent<PushObject>();
             }
         }
         return null;
@@ -145,4 +161,5 @@ public class EventController : MonoBehaviour
         targetPosition.y = transform.position.y;
         return targetPosition;
     }
+
 }

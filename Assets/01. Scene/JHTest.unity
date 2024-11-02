@@ -315,7 +315,7 @@ Transform:
   m_GameObject: {fileID: 3539868}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.85421747, y: -10.53, z: -9.3}
+  m_LocalPosition: {x: 0.41, y: -10.53, z: -9.3}
   m_LocalScale: {x: 1000, y: 1, z: 1000}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12914,7 +12914,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7700140723219948196, guid: 002e201950fd18848b2b97893f062338, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1248377809}
   m_SourcePrefab: {fileID: 9199261849990390558, guid: 002e201950fd18848b2b97893f062338, type: 3}
 --- !u!4 &827514952 stripped
 Transform:
@@ -17829,6 +17832,33 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &1248377805 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7700140723219948196, guid: 002e201950fd18848b2b97893f062338, type: 3}
+  m_PrefabInstance: {fileID: 827514951}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1248377809
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248377805}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8870886256725475529, guid: 002e201950fd18848b2b97893f062338, type: 3}
 --- !u!1001 &1254025933
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25229,7 +25259,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -2426095217661916228, guid: 8aac1f1f18ee9614a9fd2d01e3fc3bde, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2085910609}
   m_SourcePrefab: {fileID: 9199261849990390558, guid: 8aac1f1f18ee9614a9fd2d01e3fc3bde, type: 3}
 --- !u!4 &1768740479 stripped
 Transform:
@@ -26573,7 +26606,7 @@ PrefabInstance:
       objectReference: {fileID: 1779218630}
     - target: {fileID: 6891360537540702552, guid: c7314f4d7ff9db14b8390ca58629545f, type: 3}
       propertyPath: m_Mass
-      value: 70
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -27808,11 +27841,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1839695699}
-  distance: 15
+  distance: 21
   rotationSpeed: 2
   minPitch: 10
   maxPitch: 60
   smoothTime: 0.1
+  verticalOffsetMultiplier: 0
+  forwardOffsetMultiplier: 14.7
   rendererData: {fileID: 11400000, guid: 41c574c172bfc0942ae6fda5df1a3039, type: 2}
   underWaterMat: {fileID: 2100000, guid: f6330c6f94a8cb340a8735d65b9dbff5, type: 2}
 --- !u!81 &1949419287
@@ -30125,6 +30160,32 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -3124914424127336872, guid: 35381be75eb017c40a0b3eeb03d5c84b, type: 3}
   m_PrefabInstance: {fileID: 2085426557}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2085910605 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2426095217661916228, guid: 8aac1f1f18ee9614a9fd2d01e3fc3bde, type: 3}
+  m_PrefabInstance: {fileID: 1768740478}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &2085910609
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2085910605}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1500.0001, y: 1500.0006, z: 499.9996}
+  m_Center: {x: 0.00012207028, y: -0.0015563965, z: 283.83997}
 --- !u!1001 &2089154030
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stone : MonoBehaviour
+public class StoneBridgeCollider : MonoBehaviour
 {
-    public int stoneNum;
 
-
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            FirstStage.instance.stoneNum = stoneNum;
+            FirstStage.instance.isBuild = true;
         }
     }
 
@@ -19,7 +17,7 @@ public class Stone : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            FirstStage.instance.stoneNum = -1;
+            FirstStage.instance.isBuild = false;
         }
     }
 }

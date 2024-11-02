@@ -289,6 +289,19 @@ public class CameraController : MonoBehaviour
 
         isFarView = !isFarView;
     }
+    public void ToggleView(bool isFar)
+    {
+        if (isFar)
+        {
+            isFarView = true;
+            StartCoroutine(ChangeViewCoroutine(farDistance, farVerticalOffset, farforwardOffset));
+        }
+        else
+        {
+            isFarView = false;
+            StartCoroutine(ChangeViewCoroutine(closeDistance, closeVerticalOffset, closeforwardOffset));
+        }
+    }
 
     private void OnApplicationQuit()
     {

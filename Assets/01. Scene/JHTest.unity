@@ -25606,6 +25606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38d5d8633c2e3f04094846f47cb444fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTileClear: 0
   presentButton: {fileID: 2119892498}
   pastButton: {fileID: 66638726}
   presentPlacedParent: {fileID: 830423856}
@@ -25615,7 +25616,7 @@ MonoBehaviour:
   pastParent: {fileID: 1662427316}
   presentParent: {fileID: 1761501418}
   pushObjectMat: {fileID: 3047909294528282441, guid: 7360a15ea660551409a2d23c6019e12e, type: 3}
-  selectedMat: {fileID: 2044399032954064756, guid: f37d3fbfdac96a1419ee494014f6c503, type: 3}
+  selectedMat: {fileID: -6373716958945870167, guid: 301ed4e150a1a0e42ae747272fd97f64, type: 3}
 --- !u!1001 &1782753719
 PrefabInstance:
   m_ObjectHideFlags: 0

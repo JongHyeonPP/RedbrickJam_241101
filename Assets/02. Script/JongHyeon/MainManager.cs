@@ -13,6 +13,7 @@ public class MainManager : MonoBehaviour
     // UI
     public GameObject presentButton;
     public GameObject pastButton;
+    public GameObject keyCodeE;
 
     // PushObject ¼³Á¤
     [SerializeField] Transform presentPlacedParent;
@@ -53,6 +54,7 @@ public class MainManager : MonoBehaviour
 
     private void Start()
     {
+        pastButton.SetActive(true);
         pastButton.SetActive(false);
         presentButton.SetActive(false);
 

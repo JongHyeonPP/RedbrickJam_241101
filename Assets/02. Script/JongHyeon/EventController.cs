@@ -7,11 +7,10 @@ public class EventController : MonoBehaviour
     float distanceThreshold = 3f;
     float offsetDistance = -1f;
     [SerializeField] Animator animator;
-    [SerializeField] Transform player_0;
-    public bool isPushing { get; private set; } = false;
 
     private PushObject currentPushObject;
     private bool isMovingWithPushObject = false;
+    private Quaternion targetRotation; // 고정할 회전값
 
     MoveController moveController;
 
@@ -32,24 +31,30 @@ public class EventController : MonoBehaviour
                 Vector3 targetPosition = CalculateTargetPosition(currentPushObject.transform, directionToPushObject);
                 transform.position = targetPosition;
 
+                // 오브젝트를 바라보는 방향으로 회전 설정
                 transform.LookAt(new Vector3(currentPushObject.transform.position.x, transform.position.y, currentPushObject.transform.position.z));
-
+                targetRotation = transform.rotation; // 현재 회전을 고정
                 animator.SetBool("isPush", true);
-                isPushing = true;
             }
         }
 
-        if (isPushing && (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)))
-        {
-            animator.SetBool("isPush", false);
-            isPushing = false;
-            currentPushObject = null;
-            Debug.Log("밀기 중단, isPush를 비활성화했습니다.");
-        }
-
-        if (isPushing && Input.GetKeyDown(KeyCode.W) && !isMovingWithPushObject)
+        if (currentPushObject != null && Input.GetKey(KeyCode.W) && !isMovingWithPushObject)
         {
             StartCoroutine(PushObjectOneStep());
+        }
+
+        // isMovingWithPushObject가 false일 때만 ASD 키로 밀기 해제 가능
+        if(currentPushObject)
+        if (!isMovingWithPushObject && (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)))
+        {
+            animator.SetBool("isPush", false);
+            currentPushObject = null;
+        }
+
+        // 고정된 회전을 유지
+        if (currentPushObject != null)
+        {
+            transform.rotation = targetRotation;
         }
     }
 
@@ -62,22 +67,37 @@ public class EventController : MonoBehaviour
         int newRow = currentPushObject.currentRow;
         int newCol = currentPushObject.currentColumn;
 
-        // Save the original local position of player_0
-        Vector3 originalLocalPosition = player_0.localPosition;
-
-        // Define the offset to maintain the initial distance to the PushObject
         Vector3 offsetFromPushObject = transform.position - currentPushObject.transform.position;
-
-        // Determine push direction based on character's position relative to the PushObject
         Vector3 directionToPushObject = (currentPushObject.transform.position - transform.position).normalized;
 
+        // 방향에 따라 행 또는 열을 조정 (기존 방식 유지)
         if (Mathf.Abs(directionToPushObject.x) > Mathf.Abs(directionToPushObject.z))
         {
-            newRow += (directionToPushObject.x > 0) ? 1 : -1;
+            // x 방향으로 더 많이 기울어져 있는 경우: 왼쪽 또는 오른쪽으로 이동
+            if (directionToPushObject.x > 0)
+            {
+                // 오른쪽으로 이동
+                newRow -= 1;
+            }
+            else
+            {
+                // 왼쪽으로 이동
+                newRow += 1;
+            }
         }
         else
         {
-            newCol += (directionToPushObject.z > 0) ? 1 : -1;
+            // z 방향으로 더 많이 기울어져 있는 경우: 앞쪽 또는 뒤쪽으로 이동
+            if (directionToPushObject.z > 0)
+            {
+                // 앞쪽으로 이동
+                newCol += 1;
+            }
+            else
+            {
+                // 뒤쪽으로 이동
+                newCol -= 1;
+            }
         }
 
         if (newRow >= 0 && newRow < mainManager.gridPositions.GetLength(0) &&
@@ -96,10 +116,7 @@ public class EventController : MonoBehaviour
 
             while (elapsedTime < moveDuration)
             {
-                // Move the PushObject
                 currentPushObject.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / moveDuration);
-
-                // Maintain the offset distance during the push movement
                 transform.position = currentPushObject.transform.position + offsetFromPushObject;
                 elapsedTime += Time.deltaTime;
                 yield return null;
@@ -109,22 +126,20 @@ public class EventController : MonoBehaviour
             currentPushObject.currentRow = newRow;
             currentPushObject.currentColumn = newCol;
 
-            // Set character position to maintain offset after movement
             transform.position = currentPushObject.transform.position + offsetFromPushObject;
         }
 
-        // Restore player_0 to its original local position
-        player_0.localPosition = originalLocalPosition;
         animator.SetFloat("speed", 0f);
-
         moveController.canMove = true;
-        isMovingWithPushObject = false;
+        isMovingWithPushObject = false;;
         var objects = mainManager.CheckConnectedPushObjects();
         foreach (var x in objects)
         {
             x.PrintRowColumn();
         }
     }
+
+
 
     private PushObject CheckForPushObjectInFront()
     {
@@ -161,5 +176,4 @@ public class EventController : MonoBehaviour
         targetPosition.y = transform.position.y;
         return targetPosition;
     }
-
 }

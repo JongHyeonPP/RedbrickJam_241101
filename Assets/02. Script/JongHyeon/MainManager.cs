@@ -53,12 +53,14 @@ public class MainManager : MonoBehaviour
         {
             for (int j = 0; j < size; j++)
             {
+                // 행 위치를 반전하여 실제 위치에 적용하지만 gridPositions 배열 인덱스는 그대로
                 Vector3 localPosition = new Vector3((i - halfSize) * pushTerm, 0, (j - halfSize) * pushTerm);
                 GameObject positionObject = new GameObject($"Position_{i}_{j}");
                 positionObject.transform.position = placedParent.position + localPosition;
                 positionObject.transform.parent = placedParent;
 
-                gridPositions[i, j] = positionObject.transform;
+                // 반전된 위치를 적용하여 gridPositions에 저장
+                gridPositions[5 - i, j] = positionObject.transform;
             }
         }
 
@@ -71,11 +73,11 @@ public class MainManager : MonoBehaviour
             GameObject newPushObject = Instantiate(pushObjectPrefab, gridPositions[row, col].position, Quaternion.identity, placedParent);
 
             PushObject pushObject = newPushObject.GetComponent<PushObject>();
-            pushObject.currentRow = row;
-            pushObject.currentColumn = col;
+            pushObject.currentRow = row; // 원래 행 값을 유지
+            pushObject.currentColumn = col; // 원래 열 값을 유지
 
             pushObjects.Add(pushObject);
-            isPlaced[row, col] = true;
+            isPlaced[row, col] = true; // 원래 위치에 isPlaced 설정
         }
     }
 

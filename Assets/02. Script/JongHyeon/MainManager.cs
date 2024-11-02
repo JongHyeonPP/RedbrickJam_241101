@@ -5,16 +5,17 @@ using UnityEngine;
 public class MainManager : MonoBehaviour
 {
     public bool isPresent { get; private set; } = true;
-    private bool isOnCooldown = false; // 쿨타임 상태를 저장하는 변수
+    private bool isOnCooldown = false;
     CameraController cameraController;
 
     // UI
     public GameObject presentButton;
     public GameObject pastButton;
 
-    // PushTrick
+    // PushObject 설정
     [SerializeField] Transform placedParent;
-    [SerializeField] List<Transform> pushObjects = new();
+    [SerializeField] GameObject pushObjectPrefab; // PushObject 프리팹 참조
+    List<Transform> pushObjects = new();
     bool[,] isPlaced = new bool[6, 6];
     private float pushTerm = 1f;
 
@@ -35,20 +36,22 @@ public class MainManager : MonoBehaviour
         pastButton.SetActive(false);
         presentButton.SetActive(false);
 
-        int size = 6; // 배열 크기
-        float halfSize = (size - 1) / 2.0f; // 중심을 기준으로 한 거리
+        int size = 6;
+        float halfSize = (size - 1) / 2.0f;
 
-        // pushObjects를 initialPositions에 따라 위치에 배치
-        for (int i = 0; i < pushObjects.Count && i < initialPositions.Length; i++)
+        // PushObjects를 initialPositions에 따라 위치에 배치
+        for (int i = 0; i < initialPositions.Length; i++)
         {
             int row = initialPositions[i].Item1;
             int col = initialPositions[i].Item2;
 
-            // 로컬 포지션 계산: 중심에서 halfSize만큼 이동하여 정렬
+            // PushObject 프리팹을 생성하여 위치 설정
+            GameObject newPushObject = Instantiate(pushObjectPrefab, placedParent);
             Vector3 localPosition = new Vector3((row - halfSize) * pushTerm, 0, (col - halfSize) * pushTerm);
+            newPushObject.transform.position = placedParent.position + localPosition;
 
-            // 위치 배치
-            pushObjects[i].position = placedParent.position + localPosition;
+            // 생성한 오브젝트의 Transform을 pushObjects 리스트에 추가
+            pushObjects.Add(newPushObject.transform);
 
             // isPlaced 배열에 해당 위치가 true로 설정되었음을 표시
             isPlaced[row, col] = true;
@@ -70,7 +73,7 @@ public class MainManager : MonoBehaviour
             int col = position.Item2;
 
             Vector3 localPosition = new Vector3((row - halfSize) * pushTerm, 0, (col - halfSize) * pushTerm);
-            Gizmos.DrawSphere(placedParent.position + localPosition, 0.1f);
+             Gizmos.DrawSphere(placedParent.position + localPosition, 0.1f);
         }
     }
 

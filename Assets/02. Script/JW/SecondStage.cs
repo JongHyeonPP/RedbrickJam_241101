@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DigitalRuby.LightningBolt;
 
 public class SecondStage : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class SecondStage : MonoBehaviour
     public GameObject player;
     public GameObject[] tower;
     public int towerNum;
+    public string timeOfStuff;
+    public GameObject gemStone;
 
     private List<GameObject> electricInstances = new List<GameObject>();
 
@@ -23,7 +26,7 @@ public class SecondStage : MonoBehaviour
 
     void Update()
     {
-        if (towerNum >= 0 && !isRotating && Input.GetKeyDown("e"))
+        if (towerNum >= 0 && !isRotating && Input.GetKeyDown("e") && timeOfStuff == GameManager.instance.nowState)
         {
             StartCoroutine(RotateOverTime(2, towerNum));
         }
@@ -39,7 +42,7 @@ public class SecondStage : MonoBehaviour
         float elapsed = 0f;
 
         Quaternion startRotation = tower[towerNum].transform.rotation; // 현재 회전 값
-        Quaternion targetRotation = startRotation * Quaternion.Euler(0, 90, 0); // Y축으로 90도 추가
+        Quaternion targetRotation = startRotation * Quaternion.Euler(0, 0, -90); // Z축으로 90도 추가
 
         while (elapsed < duration)
         {
@@ -59,6 +62,12 @@ public class SecondStage : MonoBehaviour
         electricInstances.Add(electiricBolt);
     }
 
+    public void Clear()
+    {
+        gemStone.SetActive(true);
+        Invoke("ClearCurrentInstances", 1f);
+    }
+
     public void ClearCurrentInstances()
     {
         foreach (GameObject instance in electricInstances)
@@ -66,5 +75,18 @@ public class SecondStage : MonoBehaviour
             Destroy(instance); // 각 인스턴스 삭제
         }
         electricInstances.Clear(); // 리스트 비우기
+    }
+
+    public bool CheckingLoop(GameObject hitObject)
+    {
+        foreach (GameObject instance in electricInstances)
+        {
+            if(instance.GetComponent<LightningBoltScript>().StartObject == hitObject)
+            {
+                // 무한 루프면
+                return false;
+            }
+        }
+        return true;
     }
 }

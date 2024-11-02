@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public int gem1, gem2, gem3;
     Vector3 respawnPosition;
     public int haveGem;
+    public string nowState;
 
     private void Start()
     {

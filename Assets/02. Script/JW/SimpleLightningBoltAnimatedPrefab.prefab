@@ -142,7 +142,7 @@ LineRenderer:
   m_Positions: []
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 8
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -224,7 +224,7 @@ MonoBehaviour:
   StartPosition: {x: 0, y: 0, z: 0}
   EndObject: {fileID: 103226}
   EndPosition: {x: 0, y: 0, z: 0}
-  Generations: 3
+  Generations: 0
   Duration: 0.03
   ChaosFactor: 0.15
   ManualMode: 0

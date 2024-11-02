@@ -16,13 +16,13 @@ public class Respawn : MonoBehaviour
             if(GameManager.instance.gem1 != 1)
             {
                 GemStone[0].SetActive(true);
-            }else if (GameManager.instance.gem2 != 1)
+            }/*else if (GameManager.instance.gem2 != 1)
             {
                 GemStone[1].SetActive(true);
             }else if (GameManager.instance.gem2 != 1)
             {
                 GemStone[2].SetActive(true);
-            }
+            }*/
         }
     }
 }

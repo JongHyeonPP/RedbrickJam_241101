@@ -5,7 +5,7 @@ using DigitalRuby.LightningBolt;
 
 public class ElectricTower : MonoBehaviour
 {
-    public float rayDistance = 100f; // 레이의 최대 거리
+    public float rayDistance = 10f; // 레이의 최대 거리
     public GameObject electricBolt;
     Vector3 FirePosition;
 
@@ -53,7 +53,7 @@ public class ElectricTower : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Vector3 direction = transform.forward * rayDistance;
+        Vector3 direction = transform.up * -1 * rayDistance;
         Gizmos.DrawLine(transform.position, transform.position + direction);
     }
 }

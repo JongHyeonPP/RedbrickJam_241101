@@ -851,6 +851,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3461964551581083660, guid: 707a9f8342580a444844b6743b2770ed, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.05
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2849,12 +2853,16 @@ PrefabInstance:
       value: TransmissionTower
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2960,7 +2968,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1100, y: 1100, z: 200.4097}
+  m_Size: {x: 550, y: 550, z: 200.4097}
   m_Center: {x: 0, y: 0, z: -100.04194}
 --- !u!114 &138433243
 MonoBehaviour:
@@ -2977,7 +2985,7 @@ MonoBehaviour:
   towerNum: 7
   rayDistance: 100
   electricBolt: {fileID: 178460, guid: 2736bbc2f2c78a949957b0719c2992bd, type: 3}
-  timeOfStuff: past
+  timeOfStuff: present
 --- !u!1001 &145574564
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3073,12 +3081,16 @@ PrefabInstance:
       value: GoalTower
       objectReference: {fileID: 0}
     - target: {fileID: -2511561303396201313, guid: 9838915f548ca784ea723fb69257ecf1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: -2511561303396201313, guid: 9838915f548ca784ea723fb69257ecf1, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.009999999
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: -2511561303396201313, guid: 9838915f548ca784ea723fb69257ecf1, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.009999999
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: -2511561303396201313, guid: 9838915f548ca784ea723fb69257ecf1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4084,8 +4096,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 191022232}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 12431.277, y: -31.782505, z: 32117.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4098,7 +4110,7 @@ Transform:
   - {fileID: 1326707610}
   - {fileID: 838127378}
   - {fileID: 268183205}
-  m_Father: {fileID: 298148366}
+  m_Father: {fileID: 198252731}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &198252730
 GameObject:
@@ -4258,6 +4270,7 @@ Transform:
   - {fileID: 56221136}
   - {fileID: 116163044}
   - {fileID: 592708514}
+  - {fileID: 191022233}
   m_Father: {fileID: 1090485888}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &204161829
@@ -4947,12 +4960,16 @@ PrefabInstance:
       value: TransmissionTower
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5058,7 +5075,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1100, y: 1100, z: 200.4097}
+  m_Size: {x: 550, y: 550, z: 200.4097}
   m_Center: {x: 0, y: 0, z: -100.04194}
 --- !u!114 &268183209
 MonoBehaviour:
@@ -5075,7 +5092,7 @@ MonoBehaviour:
   towerNum: 14
   rayDistance: 100
   electricBolt: {fileID: 178460, guid: 2736bbc2f2c78a949957b0719c2992bd, type: 3}
-  timeOfStuff: past
+  timeOfStuff: present
 --- !u!1001 &268202433
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5319,12 +5336,16 @@ PrefabInstance:
       value: TransmissionTower
       objectReference: {fileID: 0}
     - target: {fileID: 4929317695329699570, guid: de7d07dad96bd4d43b3d6daa84bc04fe, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4929317695329699570, guid: de7d07dad96bd4d43b3d6daa84bc04fe, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 4929317695329699570, guid: de7d07dad96bd4d43b3d6daa84bc04fe, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 4929317695329699570, guid: de7d07dad96bd4d43b3d6daa84bc04fe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5727,16 +5748,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 298148365}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -67.89943, y: -67.582504, z: 189.32587}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 967369144}
-  - {fileID: 191022233}
   - {fileID: 496676800}
   - {fileID: 149646383}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1938424468}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &299717724
 PrefabInstance:
@@ -6063,12 +6083,16 @@ PrefabInstance:
       value: TransmissionTower
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6174,7 +6198,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1100, y: 1100, z: 200.4097}
+  m_Size: {x: 550, y: 550, z: 200.4097}
   m_Center: {x: 0, y: 0, z: -100.04194}
 --- !u!114 &306676483
 MonoBehaviour:
@@ -6191,7 +6215,7 @@ MonoBehaviour:
   towerNum: 8
   rayDistance: 100
   electricBolt: {fileID: 178460, guid: 2736bbc2f2c78a949957b0719c2992bd, type: 3}
-  timeOfStuff: past
+  timeOfStuff: present
 --- !u!1001 &313861415
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8393,7 +8417,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2497387367382028609, guid: bfe30f439b4be73478893f71be7d04e5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 57.761
+      value: 57.12
       objectReference: {fileID: 0}
     - target: {fileID: 2497387367382028609, guid: bfe30f439b4be73478893f71be7d04e5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8401,15 +8425,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2497387367382028609, guid: bfe30f439b4be73478893f71be7d04e5, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 2497387367382028609, guid: bfe30f439b4be73478893f71be7d04e5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 2497387367382028609, guid: bfe30f439b4be73478893f71be7d04e5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2497387367382028609, guid: bfe30f439b4be73478893f71be7d04e5, type: 3}
       propertyPath: m_LocalRotation.z
@@ -8417,11 +8441,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2497387367382028609, guid: bfe30f439b4be73478893f71be7d04e5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 2497387367382028609, guid: bfe30f439b4be73478893f71be7d04e5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2497387367382028609, guid: bfe30f439b4be73478893f71be7d04e5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -13640,12 +13664,16 @@ PrefabInstance:
       value: TransmissionTower
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13751,7 +13779,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1100, y: 1100, z: 200.4097}
+  m_Size: {x: 550, y: 550, z: 200.4097}
   m_Center: {x: 0, y: 0, z: -100.04194}
 --- !u!114 &838127382
 MonoBehaviour:
@@ -13768,7 +13796,7 @@ MonoBehaviour:
   towerNum: 13
   rayDistance: 100
   electricBolt: {fileID: 178460, guid: 2736bbc2f2c78a949957b0719c2992bd, type: 3}
-  timeOfStuff: past
+  timeOfStuff: present
 --- !u!1001 &844936990
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15333,12 +15361,16 @@ PrefabInstance:
       value: TransmissionTower
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15444,7 +15476,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1100, y: 1100, z: 200.4097}
+  m_Size: {x: 550, y: 550, z: 200.4097}
   m_Center: {x: 0, y: 0, z: -100.04194}
 --- !u!114 &992229172
 MonoBehaviour:
@@ -15461,7 +15493,7 @@ MonoBehaviour:
   towerNum: 11
   rayDistance: 100
   electricBolt: {fileID: 178460, guid: 2736bbc2f2c78a949957b0719c2992bd, type: 3}
-  timeOfStuff: past
+  timeOfStuff: present
 --- !u!1001 &1002658064
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16796,12 +16828,16 @@ PrefabInstance:
       value: TransmissionTower
       objectReference: {fileID: 0}
     - target: {fileID: 4929317695329699570, guid: de7d07dad96bd4d43b3d6daa84bc04fe, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4929317695329699570, guid: de7d07dad96bd4d43b3d6daa84bc04fe, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 4929317695329699570, guid: de7d07dad96bd4d43b3d6daa84bc04fe, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 4929317695329699570, guid: de7d07dad96bd4d43b3d6daa84bc04fe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17152,12 +17188,16 @@ PrefabInstance:
       value: TransmissionTower
       objectReference: {fileID: 0}
     - target: {fileID: 4929317695329699570, guid: de7d07dad96bd4d43b3d6daa84bc04fe, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4929317695329699570, guid: de7d07dad96bd4d43b3d6daa84bc04fe, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 4929317695329699570, guid: de7d07dad96bd4d43b3d6daa84bc04fe, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 4929317695329699570, guid: de7d07dad96bd4d43b3d6daa84bc04fe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17298,12 +17338,16 @@ PrefabInstance:
       value: TransmissionTower
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17409,7 +17453,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1100, y: 1100, z: 200.4097}
+  m_Size: {x: 550, y: 550, z: 200.4097}
   m_Center: {x: 0, y: 0, z: -100.04194}
 --- !u!114 &1117273620
 MonoBehaviour:
@@ -17426,7 +17470,7 @@ MonoBehaviour:
   towerNum: 9
   rayDistance: 100
   electricBolt: {fileID: 178460, guid: 2736bbc2f2c78a949957b0719c2992bd, type: 3}
-  timeOfStuff: past
+  timeOfStuff: present
 --- !u!1001 &1129147417
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17444,12 +17488,16 @@ PrefabInstance:
       value: TransmissionTower
       objectReference: {fileID: 0}
     - target: {fileID: 4929317695329699570, guid: de7d07dad96bd4d43b3d6daa84bc04fe, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4929317695329699570, guid: de7d07dad96bd4d43b3d6daa84bc04fe, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 4929317695329699570, guid: de7d07dad96bd4d43b3d6daa84bc04fe, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 4929317695329699570, guid: de7d07dad96bd4d43b3d6daa84bc04fe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -20168,12 +20216,16 @@ PrefabInstance:
       value: TransmissionTower
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalPosition.x
@@ -20279,7 +20331,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1100, y: 1100, z: 200.4097}
+  m_Size: {x: 550, y: 550, z: 200.4097}
   m_Center: {x: 0, y: 0, z: -100.04194}
 --- !u!114 &1326707614
 MonoBehaviour:
@@ -20296,7 +20348,7 @@ MonoBehaviour:
   towerNum: 12
   rayDistance: 100
   electricBolt: {fileID: 178460, guid: 2736bbc2f2c78a949957b0719c2992bd, type: 3}
-  timeOfStuff: past
+  timeOfStuff: present
 --- !u!1001 &1359252547
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21186,12 +21238,16 @@ PrefabInstance:
       value: TransmissionTower
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalPosition.x
@@ -21297,7 +21353,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1100, y: 1100, z: 200.4097}
+  m_Size: {x: 550, y: 550, z: 200.4097}
   m_Center: {x: 0, y: 0, z: -100.04194}
 --- !u!114 &1406936228
 MonoBehaviour:
@@ -21314,7 +21370,7 @@ MonoBehaviour:
   towerNum: 6
   rayDistance: 100
   electricBolt: {fileID: 178460, guid: 2736bbc2f2c78a949957b0719c2992bd, type: 3}
-  timeOfStuff: past
+  timeOfStuff: present
 --- !u!1001 &1408659834
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22085,12 +22141,16 @@ PrefabInstance:
       value: TransmissionTower
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 7782045297815415050, guid: cb42992f2eccbf3468f26a1831843e06, type: 3}
       propertyPath: m_LocalPosition.x
@@ -22196,7 +22256,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1100, y: 1100, z: 200.4097}
+  m_Size: {x: 550, y: 550, z: 200.4097}
   m_Center: {x: 0, y: 0, z: -100.04194}
 --- !u!114 &1434709998
 MonoBehaviour:
@@ -22213,7 +22273,7 @@ MonoBehaviour:
   towerNum: 10
   rayDistance: 100
   electricBolt: {fileID: 178460, guid: 2736bbc2f2c78a949957b0719c2992bd, type: 3}
-  timeOfStuff: past
+  timeOfStuff: present
 --- !u!1001 &1441197575
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25025,12 +25085,16 @@ PrefabInstance:
       value: TransmissionTower
       objectReference: {fileID: 0}
     - target: {fileID: 4929317695329699570, guid: de7d07dad96bd4d43b3d6daa84bc04fe, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4929317695329699570, guid: de7d07dad96bd4d43b3d6daa84bc04fe, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 4929317695329699570, guid: de7d07dad96bd4d43b3d6daa84bc04fe, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 4929317695329699570, guid: de7d07dad96bd4d43b3d6daa84bc04fe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -27289,12 +27353,16 @@ PrefabInstance:
       value: TransmissionTower
       objectReference: {fileID: 0}
     - target: {fileID: 4929317695329699570, guid: de7d07dad96bd4d43b3d6daa84bc04fe, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4929317695329699570, guid: de7d07dad96bd4d43b3d6daa84bc04fe, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 4929317695329699570, guid: de7d07dad96bd4d43b3d6daa84bc04fe, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.009999998
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 4929317695329699570, guid: de7d07dad96bd4d43b3d6daa84bc04fe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -28603,6 +28671,7 @@ Transform:
   - {fileID: 1742818924}
   - {fileID: 1915227370}
   - {fileID: 313861416}
+  - {fileID: 298148366}
   - {fileID: 879649277}
   - {fileID: 289591636}
   m_Father: {fileID: 1090485888}
@@ -30386,7 +30455,7 @@ MonoBehaviour:
   gem2: 0
   gem3: 0
   haveGem: 0
-  nowState: past
+  nowState: present
 --- !u!4 &2052823594
 Transform:
   m_ObjectHideFlags: 0
@@ -31964,4 +32033,3 @@ SceneRoots:
   - {fileID: 830423856}
   - {fileID: 2052823594}
   - {fileID: 172967518}
-  - {fileID: 298148366}

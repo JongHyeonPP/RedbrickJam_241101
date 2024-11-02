@@ -15,7 +15,6 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private Slider m_MusicSFXSlider;
     private GameObject soundSet;
     
-
     public static SoundManager instance;
 
     float mastervalue;
@@ -24,7 +23,7 @@ public class SoundManager : MonoBehaviour
 
     private void Awake()
     {
-        FindSlider();
+        //FindSlider();
         
         if (instance == null)
         {
@@ -35,26 +34,24 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        m_MusicMasterSlider.onValueChanged.AddListener(SetMasterVolume);
-        m_MusicBGMSlider.onValueChanged.AddListener(SetMusicVolume);
-        m_MusicSFXSlider.onValueChanged.AddListener(SetSFXVolume);
     }
-
     public void FindSlider()
     {
-        m_MusicMasterSlider = GameObject.Find("MainSound").GetComponent<Slider>();
-        m_MusicBGMSlider = GameObject.Find("BGMSound").GetComponent<Slider>();
-        m_MusicSFXSlider = GameObject.Find("SFXSound").GetComponent<Slider>();
-        soundSet = GameObject.Find("SoundSet");
+        if(m_MusicMasterSlider == null)
+        {
+            m_MusicMasterSlider = GameObject.Find("MainSound").GetComponent<Slider>();
+            m_MusicBGMSlider = GameObject.Find("BGMSound").GetComponent<Slider>();
+            m_MusicSFXSlider = GameObject.Find("SFXSound").GetComponent<Slider>();
+            soundSet = GameObject.Find("SoundSet");
+        }
         m_MusicMasterSlider.onValueChanged.AddListener(SetMasterVolume);
         m_MusicBGMSlider.onValueChanged.AddListener(SetMusicVolume);
         m_MusicSFXSlider.onValueChanged.AddListener(SetSFXVolume);
-        m_MusicMasterSlider.value = mastervalue;
-        m_MusicBGMSlider.value = bgmvalue;
-        m_MusicSFXSlider.value = sfxvalue;
+        m_MusicMasterSlider.value = PlayerPrefs.GetFloat("master");
+        m_MusicBGMSlider.value = PlayerPrefs.GetFloat("bgm");
+        m_MusicSFXSlider.value = PlayerPrefs.GetFloat("sfx");
         soundSet.SetActive(false);
     }
-
     public void UpdateSound()
     {
         mastervalue = m_MusicMasterSlider.value;

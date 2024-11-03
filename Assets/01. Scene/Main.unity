@@ -48786,6 +48786,14 @@ PrefabInstance:
       propertyPath: mainManager
       value: 
       objectReference: {fileID: 1779218630}
+    - target: {fileID: 4524220565193266146, guid: c7314f4d7ff9db14b8390ca58629545f, type: 3}
+      propertyPath: offsetDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4524220565193266146, guid: c7314f4d7ff9db14b8390ca58629545f, type: 3}
+      propertyPath: distanceThreshold
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

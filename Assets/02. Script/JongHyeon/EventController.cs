@@ -5,7 +5,7 @@ public class EventController : MonoBehaviour
 {
     [SerializeField] MainManager mainManager;
     public float distanceThreshold = 10f;
-    public float offsetDistance = 5f;
+    public float offsetDistance = 5.5f;
     [SerializeField] Animator animator;
 
     private PushObject currentPushObject;
@@ -213,5 +213,24 @@ public class EventController : MonoBehaviour
 
         targetPosition.y = transform.position.y;
         return targetPosition;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        switch (other.tag)
+        {
+            case "TimeZone":
+                if (mainManager.isPresent)
+                {
+                    mainManager.pastButton.SetActive(true);
+                    mainManager.presentButton.SetActive(false);
+                }
+                else
+                {
+                    mainManager.pastButton.SetActive(false);
+                    mainManager.presentButton.SetActive(true);
+                }
+                break;
+        }
+        
     }
 }

@@ -21,6 +21,14 @@ public class SoundManager : MonoBehaviour
     float bgmvalue;
     float sfxvalue;
 
+    [SerializeField]AudioSource audioSource;
+
+    [SerializeField] AudioClip buttonSound;
+    [SerializeField] AudioClip landSound;
+    [SerializeField] AudioClip itemSound;
+    [SerializeField] AudioClip pushSound;
+    [SerializeField] AudioClip[] walkSounds;
+    private float lastRunSoundTime;
     private void Awake()
     {
         //FindSlider();
@@ -63,43 +71,61 @@ public class SoundManager : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("master") == false)
         {
-            m_MusicMasterSlider.value = .5f;
-            mastervalue = .5f;
-            m_AudioMixer.SetFloat("Master", Mathf.Log10(mastervalue) * 20);
-            PlayerPrefs.SetFloat("master", mastervalue);
+            if (!m_MusicMasterSlider)
+            {
+                m_MusicMasterSlider.value = .5f;
+                mastervalue = .5f;
+                m_AudioMixer.SetFloat("Master", Mathf.Log10(mastervalue) * 20);
+                PlayerPrefs.SetFloat("master", mastervalue);
+            }
         }
         else
         {
-            m_MusicMasterSlider.value = PlayerPrefs.GetFloat("master");
-            mastervalue = m_MusicMasterSlider.value;
-            m_AudioMixer.SetFloat("Master", Mathf.Log10(mastervalue) * 20);
+            if (m_MusicMasterSlider)
+            {
+                m_MusicMasterSlider.value = PlayerPrefs.GetFloat("master");
+                mastervalue = m_MusicMasterSlider.value;
+                m_AudioMixer.SetFloat("Master", Mathf.Log10(mastervalue) * 20);
+            }
         }
 
         if (PlayerPrefs.HasKey("bgm") == false)
         {
-            m_MusicBGMSlider.value = .5f;
-            bgmvalue = .5f;
-            m_AudioMixer.SetFloat("BGM", Mathf.Log10(mastervalue) * 20);
-            PlayerPrefs.SetFloat("bgm", bgmvalue);
+            if (m_MusicBGMSlider)
+            {
+                m_MusicBGMSlider.value = .5f;
+                bgmvalue = .5f;
+                m_AudioMixer.SetFloat("BGM", Mathf.Log10(mastervalue) * 20);
+                PlayerPrefs.SetFloat("bgm", bgmvalue);
+            }
         }
         else
         {
-            m_MusicBGMSlider.value = PlayerPrefs.GetFloat("bgm");
-            bgmvalue = m_MusicBGMSlider.value;
-            m_AudioMixer.SetFloat("BGM", Mathf.Log10(bgmvalue) * 20);
+            if (m_MusicBGMSlider)
+            {
+                m_MusicBGMSlider.value = PlayerPrefs.GetFloat("bgm");
+                bgmvalue = m_MusicBGMSlider.value;
+                m_AudioMixer.SetFloat("BGM", Mathf.Log10(bgmvalue) * 20);
+            }
         }
         if (PlayerPrefs.HasKey("sfx") == false)
         {
-            m_MusicSFXSlider.value = .5f;
-            sfxvalue = .5f;
-            m_AudioMixer.SetFloat("SFX", Mathf.Log10(mastervalue) * 20);
-            PlayerPrefs.SetFloat("sfx", sfxvalue);
+            if (m_MusicSFXSlider)
+            {
+                m_MusicSFXSlider.value = .5f;
+                sfxvalue = .5f;
+                m_AudioMixer.SetFloat("SFX", Mathf.Log10(mastervalue) * 20);
+                PlayerPrefs.SetFloat("sfx", sfxvalue);
+            }
         }
         else
         {
-            m_MusicSFXSlider.value = PlayerPrefs.GetFloat("sfx");
-            sfxvalue = m_MusicSFXSlider.value;
-            m_AudioMixer.SetFloat("SFX", Mathf.Log10(bgmvalue) * 20);
+            if (m_MusicSFXSlider)
+            {
+                m_MusicSFXSlider.value = PlayerPrefs.GetFloat("sfx");
+                sfxvalue = m_MusicSFXSlider.value;
+                m_AudioMixer.SetFloat("SFX", Mathf.Log10(bgmvalue) * 20);
+            }
         }
     }
 
@@ -119,5 +145,38 @@ public class SoundManager : MonoBehaviour
     {
         m_AudioMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
         PlayerPrefs.SetFloat("sfx", volume);
+    }
+    public void PlaySoundEffect(string soundName, float value = 1)
+    {
+        switch (soundName)
+        {  
+            case "run":
+                PlayRandomWalkSound();     
+                break;
+            case "land":
+                audioSource.PlayOneShot(landSound, value);
+                break;
+            case "button":
+                audioSource.PlayOneShot(buttonSound, value);
+                break;
+            case "push":
+                audioSource.PlayOneShot(pushSound, value);
+                break;
+            case "item":
+                audioSource.PlayOneShot(itemSound, value);
+                break;
+            default:
+                Debug.LogWarning("Sound effect not found: " + soundName);
+                break;
+        }
+    }
+    private void PlayRandomWalkSound()
+    {
+        if (Time.time - lastRunSoundTime >= 0.5f)
+        {
+            int randomIndex = Random.Range(0, walkSounds.Length);
+            audioSource.PlayOneShot(walkSounds[randomIndex]);
+            lastRunSoundTime = Time.time;
+        }
     }
 }

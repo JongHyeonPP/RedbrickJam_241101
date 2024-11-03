@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class MainManager : MonoBehaviour
 {
+    public static MainManager instance;
+
     public bool isTileClear = false;
     public bool isPresent { get; private set; } = true;
     private bool isOnCooldown = false;
     CameraController cameraController;
-
+    [SerializeField]GameObject stage3Gem;
     // UI
     public GameObject presentButton;
     public GameObject pastButton;
@@ -50,6 +52,7 @@ public class MainManager : MonoBehaviour
     private void Awake()
     {
         cameraController = Camera.main.GetComponent<CameraController>();
+        instance = this;
     }
 
     private void Start()
@@ -69,6 +72,7 @@ public class MainManager : MonoBehaviour
         pastParent.SetActive(false);
         presentParent.SetActive(true);
         CheckConnectedPushObjects();
+        stage3Gem.SetActive(false);
     }
 
     private void InitializeGridPositions(Transform parent)
@@ -141,6 +145,7 @@ public class MainManager : MonoBehaviour
         pastParent.SetActive(true);
         presentParent.SetActive(false);
         StartCoroutine(StartCooldown());
+        SoundManager.instance.PlaySoundEffect("button");
     }
 
     public void GoPresent()
@@ -156,6 +161,7 @@ public class MainManager : MonoBehaviour
         presentParent.SetActive(true);
         ResetPresentObjectsToStartPosition();
         StartCoroutine(StartCooldown());
+        SoundManager.instance.PlaySoundEffect("button");
     }
 
     private IEnumerator StartCooldown()
@@ -235,10 +241,15 @@ public class MainManager : MonoBehaviour
         int nonFirstOrLastCount = presentObjects.Count(po => !po.isFirstOrLast);
         if (connectedObjects.Count == nonFirstOrLastCount)
         {
-            isTileClear = true;
+            Stage3Clear();
         }
     }
 
+    private void Stage3Clear()
+    {
+        isTileClear = true;
+        stage3Gem.SetActive(true);
+    }
 
     private PushObject GetPushObjectAtPosition(int row, int col)
     {

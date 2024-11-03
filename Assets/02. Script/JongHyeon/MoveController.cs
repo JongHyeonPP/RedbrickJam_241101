@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using System;
 
 public class MoveController : MonoBehaviour
 {
@@ -34,6 +33,7 @@ public class MoveController : MonoBehaviour
         if (isGrounded && !wasGrounded)
         {
             StartCoroutine(LockMovementAfterLanding());
+            SoundManager.instance.PlaySoundEffect("land");
         }
 
         if (canMove)
@@ -55,6 +55,12 @@ public class MoveController : MonoBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 targetDirection = new Vector3(horizontal, 0, vertical).normalized;
+
+        // 이동 방향이 있을 때만 소리 재생
+        if (targetDirection.magnitude > 0 && isGrounded)
+        {
+            SoundManager.instance.PlaySoundEffect("run");
+        }
 
         if (Camera.main != null && targetDirection != Vector3.zero)
         {
@@ -104,9 +110,5 @@ public class MoveController : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * groundCheckDistance);
-    }
-    public void MoveFromTo(Tuple<int, int> from, Tuple<int, int> to)
-    {
-
     }
 }

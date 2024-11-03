@@ -8,6 +8,7 @@ public class ElectricTower : MonoBehaviour
     public float rayDistance = 10f; // 레이의 최대 거리
     public GameObject electricBolt;
     Vector3 FirePosition;
+    Vector3 independentWorldPosition;
 
     private void Start()
     {
@@ -26,7 +27,7 @@ public class ElectricTower : MonoBehaviour
     {
         RaycastHit hit;
 
-        Vector3 direction = transform.forward;
+        Vector3 direction = transform.up * -1;
 
         // 레이캐스트
         if (Physics.Raycast(transform.position, direction, out hit, rayDistance))

@@ -10,19 +10,25 @@ public class Respawn : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            GameManager.instance.LoadStage();
-            GameManager.instance.LoadGem();
-            GameManager.instance.haveGem = 0;
-            if(GameManager.instance.gem1 != 1)
-            {
-                GemStone[0].SetActive(true);
-            }/*else if (GameManager.instance.gem2 != 1)
+            Spawn();
+        }
+    }
+
+    public void Spawn()
+    {
+        GameManager.instance.LoadStage();
+        GameManager.instance.LoadGem();
+        GameManager.instance.haveGem = 0;
+        if (GameManager.instance.gem1 != 1)
+        {
+            GemStone[0].SetActive(true);
+            GameManager.instance.Gem[0].SetActive(false);
+        }/*else if (GameManager.instance.gem2 != 1)
             {
                 GemStone[1].SetActive(true);
             }else if (GameManager.instance.gem2 != 1)
             {
                 GemStone[2].SetActive(true);
             }*/
-        }
     }
 }

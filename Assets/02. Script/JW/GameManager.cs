@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     public int haveGem;
     public string nowState;
 
+    public GameObject present;
+    public GameObject past;
+
     private void Start()
     {
         instance = this;
@@ -36,6 +39,16 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ButtonManager.instance.Open(Option);
+        }
+        if(nowState == "present" && present.activeSelf == false)
+        {
+            present.SetActive(true);
+            past.SetActive(false);
+        }
+        if (nowState == "past" && past.activeSelf == false)
+        {
+            past.SetActive(true);
+            present.SetActive(false);
         }
     }
 

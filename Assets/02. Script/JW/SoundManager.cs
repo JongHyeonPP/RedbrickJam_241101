@@ -175,7 +175,7 @@ public class SoundManager : MonoBehaviour
         if (Time.time - lastRunSoundTime >= 0.5f)
         {
             int randomIndex = Random.Range(0, walkSounds.Length);
-            audioSource.PlayOneShot(walkSounds[randomIndex]);
+            //audioSource.PlayOneShot(walkSounds[randomIndex]);
             lastRunSoundTime = Time.time;
         }
     }

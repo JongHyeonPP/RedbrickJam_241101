@@ -137,6 +137,7 @@ public class MainManager : MonoBehaviour
     {
         if (isOnCooldown) return;
         isPresent = false;
+        GameManager.instance.nowState = "past";
         cameraController.PastVolumeOnOff(true);
 
         pastButton.SetActive(false);
@@ -152,6 +153,7 @@ public class MainManager : MonoBehaviour
     {
         if (isOnCooldown) return;
         isPresent = true;
+        GameManager.instance.nowState = "present";
         cameraController.PastVolumeOnOff(false);
 
         pastButton.SetActive(true);

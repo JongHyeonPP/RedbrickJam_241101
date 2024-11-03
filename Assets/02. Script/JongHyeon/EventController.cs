@@ -231,6 +231,15 @@ public class EventController : MonoBehaviour
                 }
                 break;
         }
-        
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        switch (other.tag)
+        {
+            case "TimeZone":
+                    mainManager.presentButton.SetActive(false);
+                    mainManager.pastButton.SetActive(false);
+                break;
+        }
     }
 }

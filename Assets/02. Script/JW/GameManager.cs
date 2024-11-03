@@ -25,6 +25,10 @@ public class GameManager : MonoBehaviour
         gem1 = 0;
         gem2 = 0;
         gem3 = 0;
+        MessageManager.instance.OnTopMessage("목표: 보석을 3개 획득하고 골인 지점에 도착하세요!", 5);
+        MessageManager.instance.DialogueCategori = 1;
+        MessageManager.instance.DialogueNumber = 1;
+        MessageManager.instance.StartBottomMessage();
     }
 
     public void Update()

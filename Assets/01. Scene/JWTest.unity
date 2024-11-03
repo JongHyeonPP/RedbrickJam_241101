@@ -270,6 +270,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stage: 0
+  player: {fileID: 0}
+  gem1: 0
+  gem2: 0
+  gem3: 0
+  haveGem: 0
 --- !u!4 &78613616
 Transform:
   m_ObjectHideFlags: 0
@@ -1223,7 +1228,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &576761871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1528,6 +1533,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stone (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7628905301677834240, guid: cecf23a5dca5cb344a9378c91640e12b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1592,6 +1601,10 @@ PrefabInstance:
     - target: {fileID: 7628905301677834240, guid: cecf23a5dca5cb344a9378c91640e12b, type: 3}
       propertyPath: m_Name
       value: Stone (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7628905301677834240, guid: cecf23a5dca5cb344a9378c91640e12b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2052,7 +2065,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8811609555930086068, guid: 7981eb585229c6a44b60236c6d1a1941, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8811609555930086068, guid: 7981eb585229c6a44b60236c6d1a1941, type: 3}
       propertyPath: m_TagString
@@ -2769,7 +2782,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8811609555930086068, guid: 7981eb585229c6a44b60236c6d1a1941, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8811609555930086068, guid: 7981eb585229c6a44b60236c6d1a1941, type: 3}
       propertyPath: m_TagString
@@ -2969,6 +2982,7 @@ MonoBehaviour:
   airControlFactor: 0.5
   rotationSpeed: 10
   groundedLockTime: 0.2
+  canMove: 1
 --- !u!136 &1183762330
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4067,7 +4081,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8811609555930086068, guid: 7981eb585229c6a44b60236c6d1a1941, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8811609555930086068, guid: 7981eb585229c6a44b60236c6d1a1941, type: 3}
       propertyPath: m_TagString
@@ -4141,7 +4155,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8811609555930086068, guid: 7981eb585229c6a44b60236c6d1a1941, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8811609555930086068, guid: 7981eb585229c6a44b60236c6d1a1941, type: 3}
       propertyPath: m_TagString
@@ -4422,7 +4436,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4750388974614352459, guid: 24b779267f9bd724ab18b194a2b9936c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4636,7 +4650,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8811609555930086068, guid: 7981eb585229c6a44b60236c6d1a1941, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8811609555930086068, guid: 7981eb585229c6a44b60236c6d1a1941, type: 3}
       propertyPath: m_TagString
@@ -4672,7 +4686,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1744619975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4686,15 +4700,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1183762328}
+  buildCol: {fileID: 0}
   stones:
   - {fileID: 999677386}
   - {fileID: 2048971674}
   - {fileID: 319028943}
-  stonePrefebs: {fileID: 7628905301677834240, guid: cecf23a5dca5cb344a9378c91640e12b, type: 3}
+  stoneBridge: []
   stoneNum: 0
-  lastStoneNum: 0
   isHave: 0
-  distance: 3
+  isBuild: 0
 --- !u!4 &1744619976
 Transform:
   m_ObjectHideFlags: 0
@@ -5343,7 +5357,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8811609555930086068, guid: 7981eb585229c6a44b60236c6d1a1941, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8811609555930086068, guid: 7981eb585229c6a44b60236c6d1a1941, type: 3}
       propertyPath: m_TagString
@@ -5685,6 +5699,10 @@ PrefabInstance:
     - target: {fileID: 7628905301677834240, guid: cecf23a5dca5cb344a9378c91640e12b, type: 3}
       propertyPath: m_Name
       value: Stone
+      objectReference: {fileID: 0}
+    - target: {fileID: 7628905301677834240, guid: cecf23a5dca5cb344a9378c91640e12b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

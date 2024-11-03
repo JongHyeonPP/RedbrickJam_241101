@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public int stage;
     public GameObject player;
+    public GameObject Option;
+    public GameObject[] Gem;
     float mainVolume;
     float bgm;
     float sfx;
@@ -25,6 +27,14 @@ public class GameManager : MonoBehaviour
         gem3 = 0;
     }
 
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ButtonManager.instance.Open(Option);
+        }
+    }
+
     public void SaveStage(Vector3 spawn)
     {
         PlayerPrefs.SetInt("Stage", stage);
@@ -38,7 +48,6 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("Gem1", gem1);
         PlayerPrefs.SetInt("Gem2", gem2);
         PlayerPrefs.SetInt("Gem3", gem3);
-
     }
     
     public void LoadGem()

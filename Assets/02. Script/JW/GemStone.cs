@@ -12,6 +12,7 @@ public class GemStone : MonoBehaviour
         {
             gameObject.SetActive(false);
             GameManager.instance.haveGem = gemNum;
+            GameManager.instance.Gem[gemNum - 1].SetActive(true);
         }
     }
 }

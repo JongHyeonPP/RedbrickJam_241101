@@ -65,6 +65,7 @@ public class SecondStage : MonoBehaviour
     public void Clear()
     {
         gemStone.SetActive(true);
+        MessageManager.instance.OnTopMessage("태엽시계로 돌아가 보석을 획득하세요!", 0);
         Invoke("ClearCurrentInstances", 1f);
     }
 
